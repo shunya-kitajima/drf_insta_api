@@ -59,7 +59,7 @@ class Profile(models.Model):
 
 class Post(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
-    title = models.CharField(max_length=30, blank=False)
+    title = models.CharField(max_length=100)
     userPost = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name="userPost", on_delete=models.CASCADE
     )
@@ -71,3 +71,15 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
+    text = models.CharField(max_length=100)
+    userComment = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name="userComment", on_delete=models.CASCADE
+    )
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.text
