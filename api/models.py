@@ -4,6 +4,11 @@ from django.conf import settings
 import uuid
 
 
+def upload_avatar_path(instance, filename):
+    ext = filename.split('.')[-1]
+    return '/'.join(["avatars", str(instance.userProfile.id) + str(instance.nickName) + str(".") + str(ext)])
+
+
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None):
         if not email:
