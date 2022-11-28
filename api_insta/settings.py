@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "djoser",
-    "api.app.ApiConfig",
+    "api.apps.ApiConfig",
 ]
 
 MIDDLEWARE = [
