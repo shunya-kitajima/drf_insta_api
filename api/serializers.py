@@ -13,3 +13,27 @@ class UserSerializer(serializers.ModelSerializer):
         user = get_user_model().objects.create_user(**validated_data)
         return user
 
+
+class ProfileSerializer(serializers.ModelSerializer):
+    created_at = serializers.DateTimeField(format="%Y-%m-%d", read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = ("id", "nickName", "userProfile", "img", "created_at")
+        extra_kwargs = {"userProfile": {"read_only": True}}
+
+
+class PostSerializer(serializers.ModelSerializer):
+    created_at = serializers.DateTimeField(format="%Y-%m-%d", read_only=True)
+
+    class Meta:
+        model = Post
+        fields = ("id", "title", "userPost", "img", "liked", "created_at")
+        extra_kwargs = {"userPost": {"read_only": True}}
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ("id", "text", "userComment", "post")
+        extra_kwargs = {"userPost": {"read_only": True}}
